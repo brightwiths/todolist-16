@@ -32,6 +32,7 @@ export const Login = () => {
 
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
+            formik.resetForm();
         },
 
     });
@@ -56,26 +57,19 @@ export const Login = () => {
                         <TextField
                             label="Email"
                             margin="normal"
-                            name="email"
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
+                            {...formik.getFieldProps('email')}
                         />
-                        {formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
+                        {formik.touched.email && formik.errors.email && <div style={{color: "red"}}>{formik.errors.email}</div>}
                         <TextField
                             type="password"
                             label="Password"
                             margin="normal"
-                            name="password"
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
+                            {...formik.getFieldProps('password')}
                         />
-                        {formik.errors.password && <div style={{color: "red"}}>{formik.errors.password}</div>}
+                        {formik.touched.password && formik.errors.password && <div style={{color: "red"}}>{formik.errors.password}</div>}
                         <FormControlLabel
                             label={'Remember me'}
-                            control={<Checkbox
-                                onChange={formik.handleChange}
-                                checked={formik.values.rememberMe}
-                                name={'rememberMe'}
+                            control={<Checkbox {...formik.getFieldProps('rememberMe')}
                             />}
                         />
                         <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
