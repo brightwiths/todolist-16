@@ -40,7 +40,27 @@ export const todolistsAPI = {
     }
 }
 
+
+
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType< {userId: number}>>('auth/login', data);
+    },
+    me() {
+        return instance.get<ResponseType<MeResponseType>>('/auth/me')
+    },
+    logout() {
+        return instance.delete<ResponseType>('/auth/login')
+    },
+}
+
 // types
+type MeResponseType = {
+    id: number
+    email: string
+    login: string
+}
+
 export type TodolistType = {
     id: string
     title: string
@@ -92,4 +112,10 @@ type GetTasksResponse = {
     error: string | null
     totalCount: number
     items: TaskType[]
+}
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 }
